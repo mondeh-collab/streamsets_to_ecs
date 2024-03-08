@@ -3,7 +3,6 @@ import os
 from createS3Service import modified_list
 from createS3Config import json_objects
 
-
 script_text = "resources/script.csv"
 directory = "input_workflows"
 updated_params1 = [{"key": "accessKey", "value": "AKIA14C4F831EFE5ED87"},
@@ -66,7 +65,7 @@ for filename in os.listdir(directory):
 
     output_directory = "C:/Users/abmh712/Desktop/streamsets/output"
     # save updated workflow as json
-    workflowName = os.path.join(output_directory, filename )
+    workflowName = os.path.join(output_directory, filename)
     with open(filename, "w") as updatedJson:
         updatedJson.write(updated_json_data)
         print(f"Application for {workflowName} created")

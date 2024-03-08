@@ -1,4 +1,3 @@
-import os
 import json
 
 dataFormat = "DELIMITED"
@@ -128,4 +127,3 @@ modified_list = [{
 }]
 
 updated_service_data = json.dumps(modified_list, indent=2)
-
