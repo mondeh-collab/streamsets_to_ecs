@@ -1,0 +1,23 @@
+for(var i = 0; i < records.length; i++) {
+  try {
+
+    if (!records[i].value['fileType']) {
+      state['dataFilePath'] = records[i].value['objectKey'];
+    } else {
+      state['infoFilePath'] = records[i].value['objectKey'];
+    }
+
+    if (state['dataFilePath'] && state['infoFilePath']) {
+      newRec = sdcFunctions.createRecord('Data and Control event record');
+      newMap = sdcFunctions.createMap(true);
+      newMap['dataFilePath'] = state['dataFilePath'];
+      newMap['infoFilePath'] = state['infoFilePath'];
+      newRec.value = newMap;
+      output.write(newRec);
+    }
+    
+  } catch (e) {
+    // Send record to error
+    error.write(records[i], e);
+  }
+}
