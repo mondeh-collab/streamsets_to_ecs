@@ -110,7 +110,8 @@ xmlSchema = {'name': 'dataGeneratorFormatConfig.xmlSchema',
 displayFormats = {'name': 'displayFormats',
                   'value': displayFormats}
 
-services_object = [dataFormat, charset, csvFileFormat, csvHeader, csvReplaceNewLines, csvReplaceNewLinesString, csvCustomDelimiter,
+services_object = [dataFormat, charset, csvFileFormat, csvHeader, csvReplaceNewLines, csvReplaceNewLinesString,
+                   csvCustomDelimiter,
                    csvCustomEscape,
                    csvCustomQuote, jsonMode, textFieldPath, textRecordSeparator, textFieldMissingAction,
                    textEmptyLineIfNull,
@@ -127,3 +128,4 @@ modified_list = [{
 }]
 
 updated_service_data = json.dumps(modified_list, indent=2)
+#print(modified_list)

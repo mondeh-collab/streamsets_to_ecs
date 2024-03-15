@@ -1,5 +1,6 @@
 import json
 import os
+config = None
 
 datasetName = "${dataSetName}"
 dataFile = "${record:value('/dataFile')}"

@@ -2,16 +2,11 @@ import json
 import os
 from createS3Service import modified_list
 from createS3Config import json_objects
+from configs import updated_params1, updated_params2
 
-script_text = "resources/script.csv"
+script_text = "resources/script.txt"
 directory = "input_workflows"
 outdirectory = "output_workflows"
-updated_params1 = [{"key": "accessKey", "value": "AKIA4139A57D4ED44392"},
-                   {"key": "secretKey", "value": "NVMHywjIiIlSiGjvcerVydFOBOwBItddrktgtt0p"},
-                   {"key": "bucket", "value": "s3a://ursamajor-abs1-uat-edla-dm9s-za"},
-                   {"key": "jceksFile", "value": "jceks:///ecs/dm9s/za/dm9s-za-ecs.jceks"},
-                   {"key": "filePrefix", "value": "data-file-${uuid:uuid()}"},
-                   {"key": "endpoint", "value": "https://ecs-hadoop.gslb.absa.africa:9021"}]
 
 # accessing streamsets workflows from directory
 for filename in os.listdir(directory):
@@ -31,11 +26,13 @@ for filename in os.listdir(directory):
         if stage["stageName"] == "com_streamsets_pipeline_stage_executor_shell_ShellDExecutor":
             for config in stage["configuration"]:
                 if config["name"] == "config.environmentVariables":
+
                     for env_var in config["value"]:
                         if env_var["key"] == "filePath":
                             env_var["value"] = "s3a://${bucket}${hadoopRawFolder}/${tableName}"
                         if env_var["key"] == "tempPath":
                             env_var["value"] = "s3a://${bucket}/${record:value('/filePath')}"
+                    config["value"].extend(updated_params2)
 
     # Replace data file path with s3 target
     for stageTarget in data["pipelineConfig"]["stages"]:
@@ -55,7 +52,8 @@ for filename in os.listdir(directory):
         if stage["stageName"] == "com_streamsets_pipeline_stage_processor_javascript_JavaScriptDProcessor":
             for config in stage["configuration"]:
                 if config["name"] == "script":
-                    config["value"] = updatedScript.replace('\n', '')
+                    # config["value"] = updatedScript.replace('\n', '')
+                    config["value"] = updatedScript
                     newScript = config["value"]
                     prettyScript = json.dumps(newScript, indent=4)
 

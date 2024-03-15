@@ -110,3 +110,6 @@ json_objects = [bucketTemplate, awsAccessKeyId, awsSecretAccessKey, region, endp
                 stageRequiredFields, stageRecordPreconditions]
 
 updated_json_data = json.dumps(json_objects, indent=2)
+
+
+
