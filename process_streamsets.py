@@ -5,10 +5,11 @@ from createS3Config import json_objects
 
 script_text = "resources/script.csv"
 directory = "input_workflows"
-updated_params1 = [{"key": "accessKey", "value": "AKIA14C4F831EFE5ED87"},
-                   {"key": "secretKey", "value": "aTVWHyKPkrCzhvkzqqh462BBTuXmmHd9bMPa1ZPY"},
-                   {"key": "bucket", "value": "ingesttest"},
-                   {"key": "jceksFile", "value": "jceks:///tmp/s3_test/ingesttest.jceks"},
+outdirectory = "output_workflows"
+updated_params1 = [{"key": "accessKey", "value": "AKIA4139A57D4ED44392"},
+                   {"key": "secretKey", "value": "NVMHywjIiIlSiGjvcerVydFOBOwBItddrktgtt0p"},
+                   {"key": "bucket", "value": "s3a://ursamajor-abs1-uat-edla-dm9s-za"},
+                   {"key": "jceksFile", "value": "jceks:///ecs/dm9s/za/dm9s-za-ecs.jceks"},
                    {"key": "filePrefix", "value": "data-file-${uuid:uuid()}"},
                    {"key": "endpoint", "value": "https://ecs-hadoop.gslb.absa.africa:9021"}]
 
@@ -55,6 +56,8 @@ for filename in os.listdir(directory):
             for config in stage["configuration"]:
                 if config["name"] == "script":
                     config["value"] = updatedScript.replace('\n', '')
+                    newScript = config["value"]
+                    prettyScript = json.dumps(newScript, indent=4)
 
     # append constants list
     constants = data["pipelineConfig"]["configuration"][9]["value"]
@@ -63,9 +66,9 @@ for filename in os.listdir(directory):
     # Convert the modified dictionary back to JSON string
     updated_json_data = json.dumps(data, indent=2)
 
-    output_directory = "C:/Users/abmh712/Desktop/streamsets/output"
+    output_directory = "C:/Users/abmh712/Desktop/streamsets/output/"
     # save updated workflow as json
-    workflowName = os.path.join(output_directory, filename)
+    workflowName = os.path.join(outdirectory, filename)
     with open(filename, "w") as updatedJson:
         updatedJson.write(updated_json_data)
         print(f"Application for {workflowName} created")
