@@ -1,8 +1,8 @@
 import json
 import os
 from createS3Service import modified_list
-from createS3Config import json_objects
-from configs import updated_params1, updated_params2
+from createS3Config import dataFile_json_objects, controlFile_json_objects
+from configs import general_params, infoFile_params
 
 script_text = "resources/script.txt"
 directory = "input_workflows"
@@ -26,13 +26,12 @@ for filename in os.listdir(directory):
         if stage["stageName"] == "com_streamsets_pipeline_stage_executor_shell_ShellDExecutor":
             for config in stage["configuration"]:
                 if config["name"] == "config.environmentVariables":
-
                     for env_var in config["value"]:
                         if env_var["key"] == "filePath":
                             env_var["value"] = "s3a://${bucket}${hadoopRawFolder}/${tableName}"
                         if env_var["key"] == "tempPath":
                             env_var["value"] = "s3a://${bucket}/${record:value('/filePath')}"
-                    config["value"].extend(updated_params2)
+                    config["value"].extend(infoFile_params)
 
     # Replace data file path with s3 target
     for stageTarget in data["pipelineConfig"]["stages"]:
@@ -40,11 +39,11 @@ for filename in os.listdir(directory):
             stageTarget["stageName"] = "com_streamsets_pipeline_stage_destination_s3_AmazonS3DTarget"
             stageTarget["library"] = "streamsets-datacollector-aws-lib"
             stageTarget["stageVersion"] = 11
-            stageTarget["configuration"] = json_objects
+            stageTarget["configuration"] = dataFile_json_objects
             stageTarget["services"] = modified_list
 
         if stageTarget["instanceName"] == "HadoopFS_02":
-            stageTarget["configuration"] = json_objects
+            stageTarget["configuration"] = controlFile_json_objects
             stageTarget["services"] = modified_list
 
     # change dataFilePath to objectKey
@@ -59,7 +58,7 @@ for filename in os.listdir(directory):
 
     # append constants list
     constants = data["pipelineConfig"]["configuration"][9]["value"]
-    constants.extend(updated_params1)
+    constants.extend(general_params)
 
     # Convert the modified dictionary back to JSON string
     updated_json_data = json.dumps(data, indent=2)

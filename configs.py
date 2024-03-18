@@ -1,14 +1,12 @@
-updated_params1 = [{"key": "accessKey", "value": "AKIA4139A57D4ED44392"},
-                   {"key": "secretKey", "value": "NVMHywjIiIlSiGjvcerVydFOBOwBItddrktgtt0p"},
-                   {"key": "bucket", "value": "s3a://ursamajor-abs1-uat-edla-dm9s-za"},
-                   {"key": "jceksFile", "value": "jceks:///ecs/dm9s/za/dm9s-za-ecs.jceks"},
-                   {"key": "filePrefix", "value": "data-file-${uuid:uuid()}"},
-                   {"key": "endpoint", "value": "https://ecs-hadoop.gslb.absa.africa:9021"}]
+general_params = [{"key": "accessKey", "value": "AKIA14C4F831EFE5ED87"},
+                  {"key": "secretKey", "value": "aTVWHyKPkrCzhvkzqqh462BBTuXmmHd9bMPa1ZPY"},
+                  {"key": "bucket", "value": "ingesttest"},
+                  {"key": "jceksFile", "value": "jceks:///tmp/s3_test/ingesttest.jceks"},
+                  {"key": "filePrefix", "value": "data-file-${uuid:uuid()}"},
+                  {"key": "endpoint", "value": "https://ecs-hadoop.gslb.absa.africa:9021"}]
 
-
-updated_params2 = [{"key": "accessKey", "value": "AKIA4139A57D4ED44392"},
-                   {"key": "datasetName", "value": "${dataSetName}"},
-                   {"key": "secretKey", "value": "NVMHywjIiIlSiGjvcerVydFOBOwBItddrktgtt0p"},
-                   {"key": "jceksFile", "value": "jceks:///ecs/dm9s/za/dm9s-za-ecs.jceks"},
-                   {"key": "filePrefix", "value": "data-file-${uuid:uuid()}"},
-                   {"key": "endpoint", "value": "https://ecs-hadoop.gslb.absa.africa:9021"}]
+infoFile_params = [{"key": "S3_ACCESS_KEY", "value": "${accessKey}"},
+                   {"key": "S3_SECRET_KEY", "value": "${secretKey}"},
+                   {"key": "S3_JCEKS_FILE", "value": "${jceksFile}"},
+                   {"key": "FILE_PREFIX", "value": "${filePrefix}"},
+                   {"key": "S3_ENDPOINT", "value": "${endpoint}"}]

@@ -10,7 +10,7 @@ delimiter = "/"
 useSSE = False
 encryption = "S3"
 kmsKeyId = ""
-encryptionContext = [ { } ]
+encryptionContext = [{}]
 customerKey = ""
 customerKeyMd5 = ""
 connectionTimeout = 10
@@ -27,7 +27,8 @@ minimumUploadPartSize = 5242880
 partitionTemplate = ""
 timeZoneID = "UTC"
 timeDriverTemplate = "${time:now()}"
-fileNamePrefix = "${filePrefix}"
+fileNamePrefix1 = "${filePrefix}"
+fileNamePrefix2 = "_CTRL"
 fileNameSuffix = None
 compress = False
 stageOnRecordError = "TO_ERROR"
@@ -88,8 +89,10 @@ timeZoneID = {'name': 's3TargetConfigBean.timeZoneID',
               'value': timeZoneID}
 timeDriverTemplate = {'name': 's3TargetConfigBean.timeDriverTemplate',
                       'value': timeDriverTemplate}
-fileNamePrefix = {'name': 's3TargetConfigBean.fileNamePrefix',
-                  'value': fileNamePrefix}
+fileNamePrefix1 = {'name': 's3TargetConfigBean.fileNamePrefix',
+                   'value': fileNamePrefix1}
+fileNamePrefix2 = {'name': 's3TargetConfigBean.fileNamePrefix',
+                   'value': fileNamePrefix2}
 fileNameSuffix = {'name': 's3TargetConfigBean.fileNameSuffix',
                   'value': fileNameSuffix}
 compress = {'name': 's3TargetConfigBean.compress',
@@ -101,15 +104,27 @@ stageRequiredFields = {'name': 'stageRequiredFields',
 stageRecordPreconditions = {'name': 'stageRecordPreconditions',
                             'value': stageRecordPreconditions}
 
-json_objects = [bucketTemplate, awsAccessKeyId, awsSecretAccessKey, region, endpoint, commonPrefix, delimiter, useSSE,
-                encryption, kmsKeyId, encryptionContext, customerKey, customerKeyMd5, connectionTimeout, socketTimeout,
-                retryCount, useProxy, proxyHost,
-                proxyPort, proxyUser, proxyPassword, threadPoolSize, multipartUploadThreshold, minimumUploadPartSize,
-                partitionTemplate,
-                timeZoneID, timeDriverTemplate, fileNamePrefix, fileNameSuffix, compress, stageOnRecordError,
-                stageRequiredFields, stageRecordPreconditions]
+dataFile_json_objects = [bucketTemplate, awsAccessKeyId, awsSecretAccessKey, region, endpoint, commonPrefix, delimiter,
+                         useSSE,
+                         encryption, kmsKeyId, encryptionContext, customerKey, customerKeyMd5, connectionTimeout,
+                         socketTimeout,
+                         retryCount, useProxy, proxyHost,
+                         proxyPort, proxyUser, proxyPassword, threadPoolSize, multipartUploadThreshold,
+                         minimumUploadPartSize,
+                         partitionTemplate,
+                         timeZoneID, timeDriverTemplate, fileNamePrefix1, fileNameSuffix, compress, stageOnRecordError,
+                         stageRequiredFields, stageRecordPreconditions]
 
-updated_json_data = json.dumps(json_objects, indent=2)
+controlFile_json_objects = [bucketTemplate, awsAccessKeyId, awsSecretAccessKey, region, endpoint, commonPrefix,
+                            delimiter, useSSE,
+                            encryption, kmsKeyId, encryptionContext, customerKey, customerKeyMd5, connectionTimeout,
+                            socketTimeout,
+                            retryCount, useProxy, proxyHost,
+                            proxyPort, proxyUser, proxyPassword, threadPoolSize, multipartUploadThreshold,
+                            minimumUploadPartSize,
+                            partitionTemplate,
+                            timeZoneID, timeDriverTemplate, fileNamePrefix2, fileNameSuffix, compress,
+                            stageOnRecordError,
+                            stageRequiredFields, stageRecordPreconditions]
 
-
-
+dataFile_json_data = json.dumps(dataFile_json_objects, indent=2)
