@@ -1,6 +1,7 @@
 import json
 
-dataFormat = "DELIMITED"
+dataFileFormat = "DELIMITED"
+controlFileFormat = "JSON"
 charset = "UTF-8"
 csvFileFormat = "CSV"
 csvHeader = "WITH_HEADER"
@@ -37,8 +38,10 @@ xmlValidateSchema = False
 xmlSchema = None
 displayFormats = "AVRO,BINARY,DELIMITED,JSON,PROTOBUF,SDC_JSON,TEXT,WHOLE_FILE"
 
-dataFormat = {'name': 'dataFormat',
-              'value': dataFormat}
+dataFileFormat = {'name': 'dataFormat',
+                  'value': dataFileFormat}
+controlFileFormat = {'name': 'dataFormat',
+                     'value': controlFileFormat}
 charset = {'name': 'dataGeneratorFormatConfig.charset',
            'value': charset}
 csvFileFormat = {'name': 'dataGeneratorFormatConfig.csvFileFormat',
@@ -110,22 +113,44 @@ xmlSchema = {'name': 'dataGeneratorFormatConfig.xmlSchema',
 displayFormats = {'name': 'displayFormats',
                   'value': displayFormats}
 
-services_object = [dataFormat, charset, csvFileFormat, csvHeader, csvReplaceNewLines, csvReplaceNewLinesString,
-                   csvCustomDelimiter,
-                   csvCustomEscape,
-                   csvCustomQuote, jsonMode, textFieldPath, textRecordSeparator, textFieldMissingAction,
-                   textEmptyLineIfNull,
-                   avroSchemaSource, avroSchema, registerSchema, schemaRegistryUrlsForRegistration, schemaRegistryUrls,
-                   schemaLookupMode, subject, subjectToRegister, schemaId, includeSchema, avroCompression,
-                   binaryFieldPath, protoDescriptorFile,
-                   messageType, fileNameEL, wholeFileExistsAction, includeChecksumInTheEvents, checksumAlgorithm,
-                   xmlPrettyPrint, xmlValidateSchema, xmlSchema, displayFormats]
+dataFile_services_object = [dataFileFormat, charset, csvFileFormat, csvHeader, csvReplaceNewLines,
+                            csvReplaceNewLinesString,
+                            csvCustomDelimiter,
+                            csvCustomEscape,
+                            csvCustomQuote, jsonMode, textFieldPath, textRecordSeparator, textFieldMissingAction,
+                            textEmptyLineIfNull,
+                            avroSchemaSource, avroSchema, registerSchema, schemaRegistryUrlsForRegistration,
+                            schemaRegistryUrls,
+                            schemaLookupMode, subject, subjectToRegister, schemaId, includeSchema, avroCompression,
+                            binaryFieldPath, protoDescriptorFile,
+                            messageType, fileNameEL, wholeFileExistsAction, includeChecksumInTheEvents,
+                            checksumAlgorithm,
+                            xmlPrettyPrint, xmlValidateSchema, xmlSchema, displayFormats]
+controlFile_services_object = [controlFileFormat, charset, csvFileFormat, csvHeader, csvReplaceNewLines,
+                               csvReplaceNewLinesString,
+                               csvCustomDelimiter,
+                               csvCustomEscape,
+                               csvCustomQuote, jsonMode, textFieldPath, textRecordSeparator, textFieldMissingAction,
+                               textEmptyLineIfNull,
+                               avroSchemaSource, avroSchema, registerSchema, schemaRegistryUrlsForRegistration,
+                               schemaRegistryUrls,
+                               schemaLookupMode, subject, subjectToRegister, schemaId, includeSchema, avroCompression,
+                               binaryFieldPath, protoDescriptorFile,
+                               messageType, fileNameEL, wholeFileExistsAction, includeChecksumInTheEvents,
+                               checksumAlgorithm,
+                               xmlPrettyPrint, xmlValidateSchema, xmlSchema, displayFormats]
 
-modified_list = [{
+dataFile_modified_list = [{
     "service": "com.streamsets.pipeline.api.service.dataformats.DataFormatGeneratorService",
     "serviceVersion": 1,
-    "configuration": services_object
+    "configuration": dataFile_services_object
 }]
 
-updated_service_data = json.dumps(modified_list, indent=2)
-#print(modified_list)
+controlFile_modified_list = [{
+    "service": "com.streamsets.pipeline.api.service.dataformats.DataFormatGeneratorService",
+    "serviceVersion": 1,
+    "configuration": controlFile_services_object
+}]
+
+updated_service_data = json.dumps(dataFile_modified_list, indent=2)
+# print(modified_list)

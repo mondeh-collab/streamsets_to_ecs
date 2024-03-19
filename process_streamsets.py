@@ -1,6 +1,6 @@
 import json
 import os
-from createS3Service import modified_list
+from createS3Service import dataFile_modified_list, controlFile_modified_list
 from createS3Config import dataFile_json_objects, controlFile_json_objects
 from configs import general_params, infoFile_params
 
@@ -40,11 +40,11 @@ for filename in os.listdir(directory):
             stageTarget["library"] = "streamsets-datacollector-aws-lib"
             stageTarget["stageVersion"] = 11
             stageTarget["configuration"] = dataFile_json_objects
-            stageTarget["services"] = modified_list
+            stageTarget["services"] = dataFile_modified_list
 
         if stageTarget["instanceName"] == "HadoopFS_02":
             stageTarget["configuration"] = controlFile_json_objects
-            stageTarget["services"] = modified_list
+            stageTarget["services"] = controlFile_modified_list
 
     # change dataFilePath to objectKey
     for stage in data["pipelineConfig"]["stages"]:
