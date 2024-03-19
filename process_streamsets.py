@@ -6,7 +6,7 @@ from configs import general_params, infoFile_params
 
 script_text = "resources/script.txt"
 directory = "input_workflows"
-outdirectory = "output_workflows"
+outDirectory = "output_workflows"
 
 # accessing streamsets workflows from directory
 for filename in os.listdir(directory):
@@ -65,7 +65,7 @@ for filename in os.listdir(directory):
 
     output_directory = "C:/Users/abmh712/Desktop/streamsets/output/"
     # save updated workflow as json
-    workflowName = os.path.join(outdirectory, filename)
+    workflowName = os.path.join(outDirectory, filename)
     with open(filename, "w") as updatedJson:
         updatedJson.write(updated_json_data)
         print(f"Application for {workflowName} created")
