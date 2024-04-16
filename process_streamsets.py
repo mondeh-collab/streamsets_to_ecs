@@ -15,7 +15,6 @@ for filename in os.listdir(directory):
         with open(file_path) as json_file:
             data = json.load(json_file)
             title = data["pipelineConfig"]["title"]
-            print(filename)
 
     # accessing updated script config
     with open(script_text, 'r') as file:
@@ -58,12 +57,19 @@ for filename in os.listdir(directory):
 
     # append constants list
     constants = data["pipelineConfig"]["configuration"][9]["value"]
+    for constant in constants:
+        if constant['key'] == 'hadoopRawFolder':
+            constant["value"] = constant["value"].replace('/bigdatahdfs/datalake', '')
+        if constant['key'] == 'tempLandingFolder':
+            constant["value"] = constant["value"].replace('/bigdatahdfs', '')
+        if constant['key'] == 'hadoopStandardizationFolder':
+            constant["value"] = constant["value"].replace('/bigdatahdfs/datalake', '')
+
     constants.extend(general_params)
 
     # Convert the modified dictionary back to JSON string
     updated_json_data = json.dumps(data, indent=2)
 
-    output_directory = "C:/Users/abmh712/Desktop/streamsets/output/"
     # save updated workflow as json
     workflowName = os.path.join(outDirectory, filename)
     with open(filename, "w") as updatedJson:
