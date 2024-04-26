@@ -55,7 +55,7 @@ for filename in os.listdir(directory):
                     newScript = config["value"]
                     prettyScript = json.dumps(newScript, indent=4)
 
-    # append constants list
+    # remove hdfs paths from constants list
     constants = data["pipelineConfig"]["configuration"][9]["value"]
     for constant in constants:
         if constant['key'] == 'hadoopRawFolder':
@@ -65,6 +65,7 @@ for filename in os.listdir(directory):
         if constant['key'] == 'hadoopStandardizationFolder':
             constant["value"] = constant["value"].replace('/bigdatahdfs/datalake', '')
 
+    # append constants list
     constants.extend(general_params)
 
     # Convert the modified dictionary back to JSON string
