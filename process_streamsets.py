@@ -59,11 +59,11 @@ for filename in os.listdir(directory):
     constants = data["pipelineConfig"]["configuration"][9]["value"]
     for constant in constants:
         if constant['key'] == 'hadoopRawFolder':
-            constant["value"] = constant["value"].replace('/bigdatahdfs/datalake', '')
+            constant["value"] = '/raw'
         if constant['key'] == 'tempLandingFolder':
             constant["value"] = constant["value"].replace('/bigdatahdfs', '')
         if constant['key'] == 'hadoopStandardizationFolder':
-            constant["value"] = constant["value"].replace('/bigdatahdfs/datalake', '')
+            constant["value"] = '/publish'
 
     # append constants list
     constants.extend(general_params)
